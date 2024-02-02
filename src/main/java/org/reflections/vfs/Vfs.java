@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -105,7 +106,7 @@ public abstract class Vfs {
                 }
             } catch (Throwable e) {
                 if (Reflections.log != null) {
-                    Reflections.log.warn("could not create Dir using " + type + " from url " + url.toExternalForm() + ". skipping.", e);
+                    Reflections.log.log(Level.WARNING, "could not create Dir using " + type + " from url " + url.toExternalForm() + ". skipping.", e);
                 }
             }
         }
@@ -143,7 +144,7 @@ public abstract class Vfs {
                         return StreamSupport.stream(fromURL(url).getFiles().spliterator(), false);
                     } catch (Throwable e) {
                         if (Reflections.log != null) {
-                            Reflections.log.error("could not findFiles for url. continuing. [" + url + "]", e);
+                            Reflections.log.log(Level.SEVERE, "could not findFiles for url. continuing. [" + url + "]", e);
                         }
                         return Stream.of();
                     }

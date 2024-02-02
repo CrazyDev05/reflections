@@ -13,8 +13,6 @@ import org.reflections.util.FilterBuilder;
 import org.reflections.util.NameHelper;
 import org.reflections.util.QueryFunction;
 import org.reflections.vfs.Vfs;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.io.BufferedInputStream;
@@ -40,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -112,7 +112,7 @@ import static org.reflections.scanners.Scanners.*;
  * <i>For Javadoc, source code, and more information about Reflections Library, see http://github.com/ronmamo/reflections/</i>
  */
 public class Reflections implements NameHelper {
-    public final static Logger log = LoggerFactory.getLogger(Reflections.class);
+    public final static Logger log = Logger.getLogger("Reflections");
 
     protected final transient Configuration configuration;
     protected final Store store;
@@ -186,13 +186,13 @@ public class Reflections implements NameHelper {
                                     if (entries != null) collect.get(scanner.index()).addAll(entries);
                                 }
                             } catch (Exception e) {
-                                if (log != null) log.debug("could not scan file {} with scanner {}", file.getRelativePath(), scanner.getClass().getSimpleName(), e);
+                                if (log != null) log.log(Level.FINEST, "could not scan file "+file.getRelativePath()+" with scanner " + scanner.getClass().getSimpleName(), e);
                             }
                         }
                     }
                 }
             } catch (Exception e) {
-                if (log != null) log.warn("could not create Vfs.Dir from url. ignoring the exception and continuing", e);
+                if (log != null) log.log(Level.WARNING, "could not create Vfs.Dir from url. ignoring the exception and continuing", e);
             }
         });
 

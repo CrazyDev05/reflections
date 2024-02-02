@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.function.Predicate;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +42,7 @@ public class UrlTypeVFS implements UrlType {
                 return new ZipDir(new JarFile(url.getFile()));
             } catch (IOException e1) {
                 if (Reflections.log != null) {
-                    Reflections.log.warn("Could not get URL", e);
+                    Reflections.log.log(Level.WARNING, "Could not get URL", e);
                 }
             }
         }

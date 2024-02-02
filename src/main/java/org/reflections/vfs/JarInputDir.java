@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.jar.JarInputStream;
+import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 
 public class JarInputDir implements Vfs.Dir {
@@ -71,7 +72,7 @@ public class JarInputDir implements Vfs.Dir {
         try { if (jarInputStream != null) ((InputStream) jarInputStream).close(); }
         catch (IOException e) {
             if (Reflections.log != null) {
-                Reflections.log.warn("Could not close InputStream", e);
+                Reflections.log.log(Level.WARNING, "Could not close InputStream", e);
             }
         }
     }

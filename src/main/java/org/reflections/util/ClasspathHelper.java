@@ -21,6 +21,7 @@ import java.util.Set;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
+import java.util.logging.Level;
 
 /**
  * Helper methods for working with the classpath.
@@ -118,7 +119,7 @@ public abstract class ClasspathHelper {
                 }
             } catch (IOException e) {
                 if (Reflections.log != null) {
-                    Reflections.log.error("error getting resources for " + resourceName, e);
+                    Reflections.log.log(Level.SEVERE, "error getting resources for " + resourceName, e);
                 }
             }
         }
@@ -147,7 +148,7 @@ public abstract class ClasspathHelper {
                 }
             } catch (MalformedURLException e) {
                 if (Reflections.log != null) {
-                    Reflections.log.warn("Could not get URL", e);
+                    Reflections.log.log(Level.WARNING, "Could not get URL", e);
                 }
             }
         }
@@ -217,7 +218,7 @@ public abstract class ClasspathHelper {
                     urls.add(new File(path).toURI().toURL());
                 } catch (Exception e) {
                     if (Reflections.log != null) {
-                        Reflections.log.warn("Could not get URL", e);
+                        Reflections.log.log(Level.WARNING, "Could not get URL", e);
                     }
                 }
             }
